@@ -21,3 +21,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/App.js
+public/images/book-cover-2.jpg
+public/images/book-cover-3.jpg
+public/images/book-cover-4.jpg
+public/images/book-cover-5.jpg
+public/images/book-cover-6.jpg
+public/images/book-cover-7.jpg
+public/images/book-cover-8.jpg
+public/images/book-cover-9.jpg
+public/images/book-cover.jpg
