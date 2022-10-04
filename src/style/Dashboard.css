@@ -29,6 +29,11 @@
   }
 
   .sidenav a:hover {
+    opacity: 50%;
+    background-color: #282837;
+  }
+
+  .selected {
     background-color: #282837;
   }
   
@@ -56,10 +61,15 @@
   .books_container {
     display: flex;
     flex-wrap: wrap;
-    position: absolute;
-    width: 60%;
+    position: relative;
+    width: 80%;
     left: 30px;
-    top: 121px;
+    padding-top: 20px;
+  }
+
+  .search_result {
+    padding-top: 91px;
+    width: 80%;
   }
 
   .book {

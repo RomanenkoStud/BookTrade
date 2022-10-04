@@ -1,8 +1,19 @@
 import React, {useState} from "react";
-import BookList from "../components/BookList"
+import BookList from "../components/BookList";
+import { stockData } from "../data";
 
 function Search() {
 	const [inputText, setInputText] = useState("");
+	const books = stockData.filter((el) => {
+        //if no input the return the original
+        if (inputText === '') {
+            return el;
+        }
+        //return the item which contains the user input
+        else {
+            return el.title.toLowerCase().includes(inputText)
+        }
+    })
   	let inputHandler = (e) => {
     //convert input text to lower case
     var lowerCase = e.target.value.toLowerCase();
@@ -16,7 +27,9 @@ function Search() {
 					<i className="fas fa-search"></i>
 				</span>
 			</div>
-			<BookList input={inputText} />
+			<div className="search_result">
+				<BookList books={books} />
+			</div>
 		</div>
     );
 }
