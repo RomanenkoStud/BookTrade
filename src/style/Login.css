@@ -10,29 +10,30 @@
     background-color: #1D1D2A; 
   }
   
-  input[type="text"],
-  input[type="password"] {
+  .input-text {
     height: 25px;
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
   
-  input[type="submit"] {
+  .input-button {
     margin-top: 10px;
     cursor: pointer;
     font-size: 15px;
     background: #1D1D2A;
     border: 1px solid #282837;
     color: #fff;
-    padding: 10px 20px;
+    padding: 8px 30px;
+    border-radius: 50;
   }
   
-  input[type="submit"]:hover {
+  .button-container :hover {
     background: #282837;
   }
   
   .button-container {
     display: flex;
     justify-content: center;
+    padding-bottom: 10px;
   }
   
   .login-form {
@@ -42,18 +43,9 @@
     border-radius: 15px;
   }
   
-  .list-container {
-    display: flex;
-  }
-  
-  .error {
-    color: red;
-    font-size: 12px;
-  }
-  
   .title {
     font-size: 25px;
-    margin-bottom: 20px;
+    text-align: center;
   }
   
   .input-container {

@@ -1,85 +1,150 @@
-import React, {useState} from "react";
-import '../style/Login.css'
+import React, { Component } from "react";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import AuthService from "../services/auth.service";
+import { withRouter } from '../common/with-router';
+import "../style/Login.css"
 
-function Login(props) {
-    // React States
-  const [errorMessages, setErrorMessages] = useState({});
-  // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1"
-    },
-    {
-      username: "user2",
-      password: "pass2"
-    }
-  ];
-
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password"
-  };
-
-  const handleSubmit = (event) => {
-    //Prevent page reload
-    event.preventDefault();
-
-    var { uname, pass } = document.forms[0];
-
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        props.setIsSubmitted(true);
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
-  };
-
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
-
-  // JSX code for login form
-  const renderForm = (
-    <div className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label>Username </label>
-          <input type="text" name="uname" required />
-          {renderErrorMessage("uname")}
-        </div>
-        <div className="input-container">
-          <label>Password </label>
-          <input type="password" name="pass" required />
-          {renderErrorMessage("pass")}
-        </div>
-        <div className="button-container">
-          <input type="submit" value="Submit"/>
-        </div>
-      </form>
-    </div>
-  );
-
-  return (
-    <div className="app">
-      <div className="login-form">
-        <div className="title">Sign In</div>
-        {renderForm}
+const required = value => {
+  if (!value) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        This field is required!
       </div>
-    </div>
-  );
+    );
+  }
+};
 
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+
+    this.state = {
+      username: "",
+      password: "",
+      loading: false,
+      message: ""
+    };
+  }
+
+  onChangeUsername(e) {
+    this.setState({
+      username: e.target.value
+    });
+  }
+
+  onChangePassword(e) {
+    this.setState({
+      password: e.target.value
+    });
+  }
+
+  handleLogin(e) {
+    e.preventDefault();
+
+    this.setState({
+      message: "",
+      loading: true
+    });
+
+    this.form.validateAll();
+
+    if (this.checkBtn.context._errors.length === 0) {
+      AuthService.login(this.state.username, this.state.password).then(
+        () => {
+          this.props.router.navigate("/collection");
+          window.location.reload();
+        },
+        error => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          this.setState({
+            loading: false,
+            message: resMessage
+          });
+        }
+      );
+    } else {
+      this.setState({
+        loading: false
+      });
+    }
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <div className="login-form">
+          <div className="title">Login</div>
+          <Form
+            onSubmit={this.handleLogin}
+            ref={c => {
+              this.form = c;
+            }}
+          >
+            <div className="input-container">
+              <label htmlFor="username">Username</label>
+              <Input
+                type="text"
+                className="input-text"
+                name="username"
+                value={this.state.username}
+                onChange={this.onChangeUsername}
+                validations={[required]}
+              />
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="password">Password</label>
+              <Input
+                type="password"
+                className="input-text"
+                name="password"
+                value={this.state.password}
+                onChange={this.onChangePassword}
+                validations={[required]}
+              />
+            </div>
+
+            <div className="button-container">
+              <button
+                className="input-button"
+                disabled={this.state.loading}
+              >
+                {this.state.loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}
+                <span>Login</span>
+              </button>
+            </div>
+
+            {this.state.message && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {this.state.message}
+                </div>
+              </div>
+            )}
+            <CheckButton
+              style={{ display: "none" }}
+              ref={c => {
+                this.checkBtn = c;
+              }}
+            />
+          </Form>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Login;
+export default withRouter(Login);
