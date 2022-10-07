@@ -70,6 +70,9 @@
   .books_container {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .container_align {
     position: relative;
     width: 80%;
     left: 30px;

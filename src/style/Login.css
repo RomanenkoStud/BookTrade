@@ -15,6 +15,11 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
   
+  .profile-img-card {
+    display: flex;
+    justify-content: center;
+  }
+
   .input-button {
     margin-top: 10px;
     cursor: pointer;
@@ -29,7 +34,7 @@
   .button-container :hover {
     background: #282837;
   }
-  
+
   .button-container {
     display: flex;
     justify-content: center;
@@ -54,3 +59,9 @@
     gap: 8px;
     margin: 10px;
   }
+  
+  .alert {
+    width: 227px;    
+    font-size: 12px;   
+    padding: 5px;
+ }

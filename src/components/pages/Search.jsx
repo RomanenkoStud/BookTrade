@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import BookList from "../components/BookList";
-import { stockData } from "../data";
+import BookList from "../BookList";
+import { stockData } from "../../data";
 
 function Search() {
 	const [inputText, setInputText] = useState("");
@@ -28,7 +28,9 @@ function Search() {
 				</span>
 			</div>
 			<div className="search_result">
-				<BookList books={books} />
+        <div className="container_align">
+				  <BookList books={books} editable={false}/>
+        </div>
 			</div>
 		</div>
     );

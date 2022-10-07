@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import AuthService from "../services/auth.service";
-import { withRouter } from '../common/with-router';
-import "../style/Login.css"
+import AuthService from "../../services/auth.service";
+import { withRouter } from '../../common/with-router';
+import "../../style/Login.css"
 
 const required = value => {
   if (!value) {
@@ -85,6 +85,15 @@ class Login extends Component {
       <div className="app">
         <div className="login-form">
           <div className="title">Login</div>
+          <div className="profile-img-card">
+            <div className="w-50">
+              <img
+                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                alt="profile-img"
+                className="img-fluid rounded-circle"
+              />
+            </div>
+          </div>
           <Form
             onSubmit={this.handleLogin}
             ref={c => {
@@ -128,7 +137,7 @@ class Login extends Component {
             </div>
 
             {this.state.message && (
-              <div className="form-group">
+              <div className="input-container">
                 <div className="alert alert-danger" role="alert">
                   {this.state.message}
                 </div>

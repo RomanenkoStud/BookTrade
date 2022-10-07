@@ -5,11 +5,11 @@ import "./style/App.css";
 
 import AuthService from "./services/auth.service";
 
-import Login from "./components/Login";
-//import Register from "./components/pages/Register";
-import Search from "./components/Search";
-//import Profile from "./components/pages/Profile";
-//import BoardUser from "./components/pages/BoardUser";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
+import Search from "./components/pages/Search";
+import Home from "./components/pages/Home";
+import MyCollection from "./components/pages/MyCollection";
 import SidebarMenu from "./components/SidebarMenu";
 
 class App extends Component {
@@ -47,13 +47,13 @@ class App extends Component {
 
         <div className="main">
           <Routes>
-            <Route path="/" element={<Search />} />
+            <Route path="/" element={<Home />} />
             <Route path="/browse" element={<Search />} />
             <Route path="/login" element={<Login />} />
-            {/*<Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/history" element={<BoardUser />} />
-            <Route path="/collection" element={<BoardUser />} />*/}
+            <Route path="/register" element={<Register />} />
+            {/*<Route path="/profile" element={<Profile />} />
+            <Route path="/history" element={<BoardUser />} />*/}
+            <Route path="/collection" element={<MyCollection />} />
           </Routes>
         </div>
       </div>
