@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-import UserService from "../../services/user.service";
+//import UserService from "../../services/user.service";
 import BookList from "../BookList";
 import "../../style/Home.css"
 import { stockData } from "../../data";
@@ -41,7 +41,6 @@ export default class Home extends Component {
     }
     array.push(stockData[key])
     }
-    console.log(array, array.slice(0, 4))
 
     return (
       <div>

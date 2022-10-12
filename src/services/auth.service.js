@@ -1,29 +1,38 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/v1/";
+const API_URL = "https://book-spring.azurewebsites.net/api/v1/";
+
+const testData = {
+  token: "ddddd",
+  id: 5,
+  username: "Test",
+  role: "USER",
+  email: "email@gmail.com"
+}
 
 class AuthService {
-  login(username, password) {
+  login(email, password) {
     return axios
-      .post(API_URL + "signin", {
-        username,
+      .post(API_URL + "auth/login", {
+        email,
         password
       })
       .then(response => {
-        if (response.data.accessToken) {
+        if (response.data.token) {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
-
         return response.data;
       });
   }
 
   logout() {
+    axios
+    .post(API_URL + "auth/logout");
     localStorage.removeItem("user");
   }
 
   register(username, email, password) {
-    return axios.post(API_URL + "register", {
+    return axios.post(API_URL + "users/register", {
       username,
       email,
       password
@@ -31,7 +40,7 @@ class AuthService {
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+    return JSON.parse(localStorage.getItem('user'));
   }
 }
 

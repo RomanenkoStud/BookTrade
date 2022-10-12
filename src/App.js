@@ -11,6 +11,8 @@ import Search from "./components/pages/Search";
 import Home from "./components/pages/Home";
 import MyCollection from "./components/pages/MyCollection";
 import SidebarMenu from "./components/SidebarMenu";
+import AddBook from "./components/pages/AddBook";
+import Profile from "./components/pages/Profile";
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +26,6 @@ class App extends Component {
 
   componentDidMount() {
     const user = AuthService.getCurrentUser();
-
     if (user) {
       this.setState({
         currentUser: user
@@ -43,7 +44,7 @@ class App extends Component {
 
     return (
       <div>
-        <SidebarMenu currentUser={this.currentUser} logOut={this.logOut} />
+        <SidebarMenu currentUser={this.state.currentUser} logOut={this.logOut} />
 
         <div className="main">
           <Routes>
@@ -51,8 +52,9 @@ class App extends Component {
             <Route path="/browse" element={<Search />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            {/*<Route path="/profile" element={<Profile />} />
-            <Route path="/history" element={<BoardUser />} />*/}
+            <Route path="/add_book" element={<AddBook />} />
+            <Route path="/profile" element={<Profile />} />
+            {/*<Route path="/history" element={<History />} />*/}
             <Route path="/collection" element={<MyCollection />} />
           </Routes>
         </div>

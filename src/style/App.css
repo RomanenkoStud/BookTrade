@@ -51,8 +51,9 @@
     min-height: 100vh;
     height: 100%;
     margin-left: 20%;
-    padding: 0px 10px;
     width: 80%;
+    padding-top: 30px;
+    padding-left: 30px;
   }
   
   .search_bar {
@@ -61,8 +62,6 @@
     position: absolute;
     width: 60%;
     height: 61px;
-    left: 30px;
-    top: 30px;
 
     border: 1px solid #1D1D2A;
   }
@@ -75,8 +74,6 @@
   .container_align {
     position: relative;
     width: 80%;
-    left: 30px;
-    padding-top: 20px;
   }
 
   .search_result {

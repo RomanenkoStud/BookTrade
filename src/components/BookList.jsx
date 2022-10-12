@@ -12,7 +12,7 @@ function BookList(props) {
                     author={data.author} description={data.description} />}
                     </div>
                 );})}
-                {props.editable && (<Link to={"/"} style={{textDecoration: 'none'}}><BookModel cover={"default"} title={"Add book"}
+                {props.editable && (<Link to={"/add_book"} style={{textDecoration: 'none'}}><BookModel cover={"default"} title={"Add book"}
                     author={undefined} description="Click to add new book"/></Link>)}
             </div>
             );

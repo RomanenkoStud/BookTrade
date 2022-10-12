@@ -102,11 +102,12 @@ export default class Register extends Component {
       ).then(
         response => {
           this.setState({
-            message: "Thanks for registration " + this.state.username + " !",
+            message: "Thanks for registration " + this.state.username + " ! ",
             successful: true
           });
         },
         error => {
+          console.log(error.response)
           this.setState({
             successful: false,
             message: error.response.data
@@ -191,7 +192,7 @@ export default class Register extends Component {
                   role="alert"
                 >
                   {this.state.message}
-                  {this.state.successful ? <Link to={"/login"} >Login</Link> : {}}
+                  {this.state.successful ? <Link to={"/login"} >Login</Link> : null}
                 </div>
               </div>
             )}
