@@ -40,3 +40,23 @@
     top: 40%;
     color: white;
   }
+
+  @media (max-width: 767.98px) {
+    .hero-image {  
+        height: 60vh;
+        border-radius: 15px;
+        width: 90%;  
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        display: flex;
+        justify-content: center;
+      }
+      .control-arrow {
+        display: none;
+    }
+    .container {
+      padding-top: 0vh;
+  }
+  }

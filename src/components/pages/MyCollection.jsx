@@ -4,7 +4,7 @@ import { stockData } from "../../data";
 
 function MyCollection() {
     return (
-		<div className="container_align">
+		<div className="container_align content">
 			<BookList books={stockData} editable={true}/>
 		</div>
     );

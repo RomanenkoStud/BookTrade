@@ -43,7 +43,7 @@ export default class Home extends Component {
     }
 
     return (
-      <div>
+      <div className="content">
         <div className="hero">
           <div className="hero-image" style={{ 
             backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("/images/hero-books.jpg")'}}>
@@ -56,13 +56,13 @@ export default class Home extends Component {
         <div className="container">
             <Carousel infiniteLoop={true}	showStatus={false}	showThumbs={false}>
                 <div className="book-block">
-			          	<BookList books={array.slice(0, 4)} editable={false}/>
+			          	<BookList books={array.slice(0, 3)} editable={false}/>
                 </div>
                 <div className="book-block">
-                  <BookList books={array.slice(4, 8)} editable={false}/>
+                  <BookList books={array.slice(3, 6)} editable={false}/>
                 </div>
                 <div className="book-block">
-                  <BookList books={array.slice(8, 12)} editable={false}/>
+                  <BookList books={array.slice(6, 9)} editable={false}/>
                 </div>
             </Carousel>
         </div>

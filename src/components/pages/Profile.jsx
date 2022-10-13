@@ -22,7 +22,7 @@ export default class Profile extends Component {
   render() {
     if(this.state.currentUser)
     return (
-      <div className="col-md-8">
+      <div className="col-md-8 content">
       <div className="card mb-3" style={{ borderRadius: '15px' }}>
         <div className="card-body">
           <div className="row">

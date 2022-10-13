@@ -20,7 +20,7 @@ function Search() {
     setInputText(lowerCase);
   };
     return (
-		<div>
+		<div className="content">
 			<div className="input-group rounded search_bar">
 				<input type="search" onChange={inputHandler} className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
 				<span className="input-group-text border-0" id="search-addon">
