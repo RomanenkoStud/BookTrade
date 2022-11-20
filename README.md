@@ -4,8 +4,10 @@ This app was made as study project by Romanenko Pavlo ([@RomanenkoStud](https://
 
 ## Available Functionality
 
-![preview](https://github.com/RomanenkoStud/my-app/blob/master/preview1.png)
-![preview](https://github.com/RomanenkoStud/my-app/blob/master/preview2.png)
+Desktop            |  Mobile
+:-------------------------:|:-------------------------:
+![preview](https://github.com/RomanenkoStud/my-app/blob/master/preview1.png)  |  ![preview](https://github.com/RomanenkoStud/my-app/blob/master/preview2.png)
+
 
 User Registration & Login
 
