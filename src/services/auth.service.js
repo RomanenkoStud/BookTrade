@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://book-spring.azurewebsites.net/api/v1/";
+const API_URL = "http://localhost:8080/api/v1/auth/";
 
 const testData = {
   token: "ddddd",
@@ -13,7 +13,7 @@ const testData = {
 class AuthService {
   login(email, password) {
     return axios
-      .post(API_URL + "auth/login", {
+      .post(API_URL + "login", {
         email,
         password
       })
@@ -27,16 +27,8 @@ class AuthService {
 
   logout() {
     axios
-    .post(API_URL + "auth/logout");
+    .post(API_URL + "logout");
     localStorage.removeItem("user");
-  }
-
-  register(username, email, password) {
-    return axios.post(API_URL + "users/register", {
-      username,
-      email,
-      password
-    });
   }
 
   getCurrentUser() {

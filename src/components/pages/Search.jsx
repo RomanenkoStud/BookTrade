@@ -1,10 +1,25 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import BookList from "../BookList";
-import { stockData } from "../../data";
+import BookService from "../../services/book.service";
 
-function Search() {
+function Search(props) {
 	const [inputText, setInputText] = useState("");
-	const books = stockData.filter((el) => {
+  const [booksAll, setBooks] = useState([]);
+	useEffect(() => {
+		BookService.getBooksAll(20).then(
+      response => {
+        setBooks(response.data);
+      },
+      error => {
+        setBooks(
+            (error.response && error.response.data) ||
+            error.message ||
+            error.toString());
+      }
+    );
+	  }, []);
+    
+	const books = booksAll.filter((el) => {
         //if no input the return the original
         if (inputText === '') {
             return el;
@@ -29,7 +44,7 @@ function Search() {
 			</div>
 			<div className="search_result">
         <div className="container_align">
-				  <BookList books={books} editable={false}/>
+				  <BookList books={books} editable={false} event={props.event}/>
         </div>
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style/App.css";
@@ -13,54 +13,47 @@ import MyCollection from "./components/pages/MyCollection";
 import SidebarMenu from "./components/SidebarMenu";
 import AddBook from "./components/pages/AddBook";
 import Profile from "./components/pages/Profile";
+import Exchange from "./components/Exchange";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.logOut = this.logOut.bind(this);
+function App () {
+  let modalRef = useRef();
+  const [currentUser, setCurrentUser] = useState(undefined);
 
-    this.state = {
-      currentUser: undefined,
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
-      this.setState({
-        currentUser: user
-      });
+      setCurrentUser(user);
     }
-  }
+  }, []);
 
-  logOut() {
+  const logOut = () => {
     AuthService.logout();
-    this.setState({
-      currentUser: undefined,
-    });
+    setCurrentUser(undefined);
   }
 
-  render() {
+  const handleExchange = (value) => {
+    modalRef.current.openModal(value)
+  }
 
-    return (
-      <div>
-        <SidebarMenu currentUser={this.state.currentUser} logOut={this.logOut} />
-
-        <div className="main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/browse" element={<Search />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/add_book" element={<AddBook />} />
-            <Route path="/profile" element={<Profile />} />
-            {/*<Route path="/history" element={<History />} />*/}
-            <Route path="/collection" element={<MyCollection />} />
-          </Routes>
-        </div>
+  return (
+    <div className="background">
+      <SidebarMenu currentUser={currentUser} logOut={logOut} />
+      <Exchange ref={modalRef} user={currentUser}/>
+      <div className="main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/browse" element={<Search event={handleExchange}/>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/add_book" element={<AddBook />} />
+          <Route path="/profile" element={<Profile />} />
+          {/*<Route path="/history" element={<History />} />*/}
+          <Route path="/collection" element={<MyCollection user={currentUser}/>} />
+        </Routes>
       </div>
-    );
-  }
+    </div>
+  );
+
 }
 
 export default App;

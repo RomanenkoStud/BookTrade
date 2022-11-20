@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import { MultiSelect } from "react-multi-select-component";
 import CheckButton from "react-validation/build/button";
 import { Link } from "react-router-dom";
 
@@ -8,13 +9,34 @@ import ImageUploader from 'react-image-upload'
 import 'react-image-upload/dist/index.css'
 import '../../style/Login.css'
 
-import UserService from "../../services/user.service";
+import BookService from "../../services/book.service";
 
+const genreOptions = [
+    { value: 'ACTION_AND_ADVENTURE', label: 'Action and adventure' },
+    { value: 'CLASSICS', label: 'Classics' },
+    { value: 'COMIC_BOOK', label: 'Comic book' },
+    { value: 'DETECTIVE_AND_MYSTERY', label: 'Detective and mystery' },
+    { value: 'FANTASY', label: 'Fantasy' },
+    { value: 'HISTORICAL_FICTION', label: 'Historical fiction' },
+    { value: 'HORROR', label: 'Horror' },
+    { value: 'LITERARY_FICTION', label: 'Literary fiction' },
+  ]
+  
 const required = value => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
         This field is required!
+      </div>
+    );
+  }
+};
+
+const visbn = value => {
+  if (value.length < 10 || value.length > 15) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The ISBN must be between 10 and 15 characters.
       </div>
     );
   }
@@ -28,26 +50,33 @@ export default class AddBook extends Component {
     this.onChangeAuthor = this.onChangeAuthor.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeISBN = this.onChangeISBN.bind(this);
+    this.onChangePublisher = this.onChangePublisher.bind(this);
     this.onChangeGenre = this.onChangeGenre.bind(this);
-    
+
     this.state = {
       title: "",
       author: "",
-      image: "",
+      image: false,
       description: "",
       isbn: "",
-      genre: "",
+      genre: [],
       successful: false,
-      message: ""
+      message: "",
+      publisher: ""
     };
   }
   
   getImageFileObject(imageFile) {
-    console.log({ imageFile })
+    let file = imageFile.file
+    this.setState({
+      image: file
+    });
   }
   
   runAfterImageDelete(file) {
-    console.log({ file })
+    this.setState({
+      image: false
+    });
   }
 
   onChangeTitle(e) {
@@ -74,10 +103,16 @@ export default class AddBook extends Component {
     });
   }
 
-  onChangeGenre(e) {
+  onChangePublisher(e) {
     this.setState({
-      genre: e.target.value
+      publisher: e.target.value
     });
+  }
+
+  onChangeGenre(value) {
+    this.setState({
+      genre: value
+    })
   }
 
   handleAddBook(e) {
@@ -90,24 +125,36 @@ export default class AddBook extends Component {
 
     this.form.validateAll();
 
+    if (!this.state.image) {
+      let response = async () => await fetch('/images/default.jpg');
+      let data = async () => await response.blob();
+      let metadata = {
+        type: 'image/jpeg'
+      };
+      const file = new File([data], "default.jpg", metadata);
+      this.setState({
+        image: file
+      });
+    }
+
+    const book = {
+      "title": this.state.title, "author": this.state.author, "description": this.state.description, 
+      "genre": this.state.genre, "isbn": this.state.isbn, "publisher": this.state.publisher
+    }
+
     if (this.checkBtn.context._errors.length === 0) {
-      UserService.addBook(
-        {
-          title: this.state.title,
-          author: this.state.author,
-          description: this.state.description,
-          genre: this.state.genre,
-          isbn: this.state.isbn,
-          image: this.state.image
-        }
+      BookService.addBook(
+        new Blob([ JSON.stringify(book)], { type: "application/json",}),
+        new Blob([this.state.image], { type: "multipart/form-data",})
       ).then(
         response => {
           this.setState({
-            message: "Thanks for adding " + this.state.title + " !",
+            message: "Book " + this.state.title + " added ! ",
             successful: true
           });
         },
         error => {
+          console.log(error.response)
           this.setState({
             successful: false,
             message: error.response.data
@@ -175,29 +222,48 @@ export default class AddBook extends Component {
                     name="ISBN"
                     value={this.state.isbn}
                     onChange={this.onChangeISBN}
+                    validations={[required, visbn]}
                   />
                 </div>
 
                 <div className="input-container">
-                  <label htmlFor="genre">Genre</label>
+                  <label htmlFor="isbn">Publisher</label>
                   <Input
                     type="text"
                     className="input-text description"
-                    name="genre"
-                    value={this.state.genre}
-                    onChange={this.onChangeGenre}
+                    name="publisher"
+                    value={this.state.publisher}
+                    onChange={this.onChangePublisher}
                     validations={[required]}
                   />
                 </div>
+                
                 </div>
+                <div className="fields">
+                
                 <div className="input-container">
-                <label htmlFor="image">Cover</label>
-                <div className="book-img-card">
-                  <ImageUploader
-                    onFileAdded={(img) => this.getImageFileObject(img)}
-                    onFileRemoved={(img) => this.runAfterImageDelete(img)}
+                  <label htmlFor="genre">Genre</label>
+                  <MultiSelect
+                    name="genre"
+                    className="input-text"
+                    options={genreOptions}
+                    value={this.state.genre}
+                    onChange={this.onChangeGenre}
+                    disableSearch={true}
+                    hasSelectAll={false}
                   />
                 </div>
+
+                <div className="input-container">
+                  <label htmlFor="image">Cover</label>
+                  <div className="book-img-card">
+                    <ImageUploader
+                      onFileAdded={(img) => this.getImageFileObject(img)}
+                      onFileRemoved={(img) => this.runAfterImageDelete(img)}
+                    />
+                  </div>
+                </div>
+
                 </div>
                 </div>
                 <div className="button-container">

@@ -5,7 +5,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import { Link } from "react-router-dom";
 
-import AuthService from "../../services/auth.service";
+import UserService from "../../services/user.service";
 
 import "../../style/Login.css"
 
@@ -95,7 +95,7 @@ export default class Register extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      AuthService.register(
+      UserService.register(
         this.state.username,
         this.state.email,
         this.state.password
@@ -107,7 +107,6 @@ export default class Register extends Component {
           });
         },
         error => {
-          console.log(error.response)
           this.setState({
             successful: false,
             message: error.response.data

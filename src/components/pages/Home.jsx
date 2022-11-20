@@ -4,8 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 //import UserService from "../../services/user.service";
 import BookList from "../BookList";
 import "../../style/Home.css"
-import { stockData } from "../../data";
-
+import BookService from "../../services/book.service";
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +15,7 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    /*UserService.getPublicContent().then(
+    BookService.getBooksAll(9).then(
       response => {
         this.setState({
           content: response.data
@@ -30,16 +29,16 @@ export default class Home extends Component {
             error.toString()
         });
       }
-    );*/
+    );
   }
   
   render() {
     var array = [];
-    for(var key in stockData){
-    if(!stockData.hasOwnProperty(key)){
+    for(var key in this.state.content){
+    if(!this.state.content.hasOwnProperty(key)){
         continue;
     }
-    array.push(stockData[key])
+    array.push(this.state.content[key])
     }
 
     return (

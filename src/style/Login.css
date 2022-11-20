@@ -5,7 +5,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 20px;
-    height: 100vh;
+    min-height: 100vh;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     background-color: #1D1D2A; 
   }
@@ -13,8 +13,27 @@
   .input-text {
     height: 25px;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 227px;
   }
   
+  .dropdown-container {
+    height: 25px !important; 
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    border-radius: 0% !important;
+    width: 227px !important;
+  }
+  .dropdown-heading {
+    height: 25px !important; 
+  }
+  .rmsc {
+    border: 0!important;
+    border-radius: 0% !important;
+  }
+  .dropdown-content {
+    position: absolute!important;
+    z-index: 9999!important;
+  }
+
   .profile-img-card {
     display: flex;
     justify-content: center;
@@ -53,11 +72,17 @@
     text-align: center;
   }
   
+  .fields {
+    display: flex;
+    flex-direction: column;
+  }
+
   .input-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin: 10px;
+    max-width: 600px;
   }
   
   .alert {
@@ -81,6 +106,10 @@
   border-radius: 15px;
  }
 
+ .exchange_i {
+  font-size: 300% !important;
+ }
+
  @media (max-width: 767.98px) {
   .login-form {
     padding: 1rem;
@@ -92,4 +121,10 @@
     width: 120px;
     height: 150px;
    }
+   .exchange_i {
+    font-size: 100% !important;
+   }
+   .input-container {
+    max-width: 215px;
+  }
  }
