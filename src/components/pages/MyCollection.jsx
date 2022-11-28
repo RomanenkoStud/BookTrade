@@ -8,16 +8,16 @@ function MyCollection(props) {
     	if(props.user){
 		BookService.getBooks(props.user.id, props.user.token).then(
 			response => {
-			  setBooks(response.data);
+			    setBooks(response.data);
 			},
 			error => {
-			  setBooks(
-				  (error.response && error.response.data) ||
-				  error.message ||
-				  error.toString());
+			    setBooks(
+				    (error.response && error.response.data) ||
+				    error.message ||
+				    error.toString());
 			}
-		  );}
-	  }, [props.user]);
+		    );}
+	    }, [props.user]);
     return (
 		<div className="container_align content">
 			<BookList books={books} editable={true}/>

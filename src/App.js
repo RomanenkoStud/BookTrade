@@ -13,6 +13,7 @@ import MyCollection from "./components/pages/MyCollection";
 import SidebarMenu from "./components/SidebarMenu";
 import AddBook from "./components/pages/AddBook";
 import Profile from "./components/pages/Profile";
+import History from "./components/pages/History";
 import Exchange from "./components/Exchange";
 
 function App () {
@@ -47,7 +48,7 @@ function App () {
           <Route path="/register" element={<Register />} />
           <Route path="/add_book" element={<AddBook />} />
           <Route path="/profile" element={<Profile />} />
-          {/*<Route path="/history" element={<History />} />*/}
+          <Route path="/history" element={<History />} />
           <Route path="/collection" element={<MyCollection user={currentUser}/>} />
         </Routes>
       </div>

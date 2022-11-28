@@ -47,7 +47,7 @@ export default class Home extends Component {
           <div className="hero-image" style={{ 
             backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("/images/hero-books.jpg")'}}>
             <div className="hero-text">
-             <h1>Welcome to Book Trade</h1>
+              <h1>Welcome to Book Trade</h1>
               <p>The best book exchange app</p>
             </div>
           </div>
