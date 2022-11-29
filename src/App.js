@@ -47,8 +47,8 @@ function App () {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/add_book" element={<AddBook />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/history" element={<History />} />
+          <Route path="/profile" element={<Profile user={currentUser}/>} />
+          <Route path="/history" element={<History user={currentUser}/>} />
           <Route path="/collection" element={<MyCollection user={currentUser}/>} />
         </Routes>
       </div>

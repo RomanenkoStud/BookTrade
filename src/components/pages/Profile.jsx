@@ -1,22 +1,12 @@
 import React, { Component } from "react";
-import AuthService from "../../services/auth.service";
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-        currentUser: undefined
+        currentUser: props.user
     };
-  }
-
-  componentDidMount() {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      this.setState({
-        currentUser: user
-      });
-    }
   }
   
   render() {

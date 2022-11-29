@@ -14,6 +14,23 @@ class ExchangeService {
         );
   }
 
+  getRequests(id, token) {
+    return axios({
+      method: 'get',
+      url: API_URL + 'get-all-request-to-user/' + id,
+      headers: {
+        Authorization: token
+      }
+  })
+  }
+
+  acceptRequest(requestId, token) {
+        return axios.post(API_URL + "accept-exchange", {
+          requestId
+        },
+        {headers: { Authorization: token }}
+        );
+  }
 }
 
 export default new ExchangeService();
